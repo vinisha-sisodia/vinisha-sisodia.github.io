@@ -307,7 +307,7 @@ article:hover .media img.contain { transform: none; }
 .contact-col { display: grid; gap: var(--s3); min-width: 0; align-content: start; }
 .contact-col .label { font-size: var(--fs-sm); color: var(--muted); font-weight: var(--w-medium); }
 .email-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
-.email { font-family: var(--font-display); font-size: var(--fs-xl); user-select: all; overflow-wrap: anywhere; }
+.email { font-family: var(--font-display); font-size: var(--fs-lg); user-select: all; overflow-wrap: anywhere; }
 .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: var(--s3); }
 .links a { display: grid; gap: 2px; justify-items: center; text-align: center; padding: var(--s4); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); text-decoration: none; color: var(--fg); transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease); }
 .links a:hover { transform: translateY(var(--lift)); border-color: var(--accent); }
@@ -714,8 +714,9 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
   },
   "contact": {
     "heading": "Get in touch",
-    "text": "I'm looking for Summer 2027 electrical engineering internships and undergraduate research. Email is the fastest way to reach me.",
+    "text": "I'm looking for Summer 2027 electrical engineering internships and undergraduate research. Email is the best way to reach me.",
     "email": "vsisodia3@gatech.edu",
+    "email2": "vinisha.sisodia@outlook.com",
     "location": "Atlanta, GA and Unionville, CT",
     "links": [
       {
@@ -1202,19 +1203,26 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
 
   function contact() {
     var c = state.contact;
-    var toast = h("span", { "class": "toast", role: "status", "aria-live": "polite" });
-    var emailEl = t("span", "contact.email", "email");
-    function selectEmail() { var r = document.createRange(); r.selectNodeContents(emailEl); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = "Selected. Press Ctrl or Cmd + C to copy."; }
-    var copyBtn = editing ? null : h("button", { "class": "btn small", type: "button", text: "Copy email", onclick: function () {
-      try {
-        navigator.clipboard.writeText(c.email).then(function () {
-          toast.textContent = "Copied"; setTimeout(function () { toast.textContent = ""; }, 1800);
-        }, selectEmail);
-      } catch (err) { selectEmail(); }
-    } });
+    /* one row per address, each with its own copy button */
+    function emailRow(path) {
+      var addr = getP(state, path);
+      if (!addr && !editing) return null;
+      var toast = h("span", { "class": "toast", role: "status", "aria-live": "polite" });
+      var emailEl = t("span", path, "email");
+      function selectEmail() { var r = document.createRange(); r.selectNodeContents(emailEl); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast.textContent = "Selected. Press Ctrl or Cmd + C to copy."; }
+      var copyBtn = editing ? null : h("button", { "class": "btn small", type: "button", text: "Copy", "aria-label": "Copy " + addr, onclick: function () {
+        try {
+          navigator.clipboard.writeText(addr).then(function () {
+            toast.textContent = "Copied"; setTimeout(function () { toast.textContent = ""; }, 1800);
+          }, selectEmail);
+        } catch (err) { selectEmail(); }
+      } });
+      return h("div", { "class": "email-row" }, [emailEl, copyBtn, toast]);
+    }
     var left = h("div", { "class": "contact-col" }, [
       h("div", { "class": "label", text: "Email" }),
-      h("div", { "class": "email-row" }, [emailEl, copyBtn, toast]),
+      emailRow("contact.email"),
+      emailRow("contact.email2"),
       h("div", { "class": "label", text: "Location" }),
       t("div", "contact.location"),
       t("div", "contact.relocation", "relocate")
