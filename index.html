@@ -848,7 +848,7 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
 
   /* ---------- sections ---------- */
   function nav() {
-    var links = [["about", "About"], ["career", "Goals"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["volunteering", "Volunteering"], ["skills", "Skills"], ["resume", "Resume"], ["contact", "Contact"]];
+    var links = [["about", "About"], ["career", "Goals"], ["skills", "Skills"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["volunteering", "Volunteering"], ["resume", "Resume"], ["contact", "Contact"]];
     var list = h("nav", { "class": "nav-links", id: "nav-links", "aria-label": "Sections" });
     var menu = h("button", { "class": "btn small menu-btn", type: "button", "aria-expanded": "false", "aria-controls": "nav-links", text: "Menu" });
     function close() { list.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "Menu"; }
@@ -1353,11 +1353,11 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
     app.innerHTML = "";
     document.body.classList.toggle("editing", editing);
     [nav(), h("main", { id: "main" }, [
-      hero(), about(), projects(),
+      hero(), about(), skills(), projects(),
       timeline("experience", "Experience", "experience", { role: "Role", org: "Company", period: "2027", desc: "", points: ["What you did and the result."] }),
       timeline("leadership", "Leadership", "leadership", { role: "Role", org: "Organization", period: "2027", desc: "", points: ["What you led and the result."] }),
       (state.volunteering && (state.volunteering.length || editing)) ? timeline("volunteering", "Volunteering", "volunteering", { role: "Role", org: "Organization", period: "2027", desc: "", points: ["What you did and the impact."] }) : null,
-      skills(), resume(), contact()
+      resume(), contact()
     ]), footer(), editbar()].forEach(function (n) { if (n) app.appendChild(n); });
     var ct = document.getElementById("contact-title");
     if (ct) { ct.textContent = state.contact.heading || ""; ct.dataset.path = "contact.heading"; }
