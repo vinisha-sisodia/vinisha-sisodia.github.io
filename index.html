@@ -848,7 +848,7 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
 
   /* ---------- sections ---------- */
   function nav() {
-    var links = [["about", "About"], ["career", "Goals"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["volunteering", "Volunteering"], ["education", "Education"], ["skills", "Skills"], ["resume", "Resume"], ["contact", "Contact"]];
+    var links = [["about", "About"], ["career", "Goals"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["volunteering", "Volunteering"], ["skills", "Skills"], ["resume", "Resume"], ["contact", "Contact"]];
     var list = h("nav", { "class": "nav-links", id: "nav-links", "aria-label": "Sections" });
     var menu = h("button", { "class": "btn small menu-btn", type: "button", "aria-expanded": "false", "aria-controls": "nav-links", text: "Menu" });
     function close() { list.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "Menu"; }
