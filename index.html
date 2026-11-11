@@ -87,7 +87,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: var(--fs-sm); font-weight: var(--w-medium); transition: color var(--dur) var(--ease); }
 .nav-links a:hover { color: var(--fg); }
 .btn.menu-btn { display: none; }
-@media (max-width: 820px) {
+@media (max-width: 1060px) {
   .btn.menu-btn { display: inline-flex; }
   .nav-links { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: var(--s2) max(16px, env(safe-area-inset-right, 0px)) var(--s3) max(16px, env(safe-area-inset-left, 0px)); }
   .nav-links a { padding-block: var(--s3); font-size: var(--fs-md); }
@@ -619,16 +619,6 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
         "Processed caregiver payroll in QuickBooks with 100% on-time pay.",
         "Designed flyers, business cards, and promotional videos for the local franchise."
       ]
-    },
-    {
-      "role": "Volunteer Receptionist",
-      "org": "Hospital of Central Connecticut",
-      "period": "2022 – 2024",
-      "desc": "High-volume regional hospital in central Connecticut.",
-      "points": [
-        "Checked in about 100 patients and visitors per shift at the front desk.",
-        "Directed patients and families to the right departments and answered questions, keeping the lobby moving during busy hours."
-      ]
     }
   ],
   "leadership": [
@@ -652,6 +642,38 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
       "points": [
         "Founded and led a 30-person student chapter supporting leukemia patients and families.",
         "Raised $16,000 across 14 fundraising events and managed contact with 20+ sponsors."
+      ]
+    }
+  ],
+  "volunteering": [
+    {
+      "role": "Volunteer Receptionist",
+      "org": "Hospital of Central Connecticut",
+      "period": "2022 – 2024",
+      "desc": "High-volume regional hospital in central Connecticut.",
+      "points": [
+        "Checked in about 100 patients and visitors per shift at the front desk, verifying identity and accessibility needs.",
+        "Directed patients and families to the right departments and answered questions, keeping the lobby moving during busy hours."
+      ]
+    },
+    {
+      "role": "Mentor",
+      "org": "LEGO League program, Robotics Team 178",
+      "period": "2022 – 2026",
+      "desc": "Youth robotics program run by my high school robotics team.",
+      "points": [
+        "Mentored 80+ kids ages 4 to 12, two hours a week year-round.",
+        "Developed hands-on STEM activities that taught teamwork and the basics of building and programming robots."
+      ]
+    },
+    {
+      "role": "Tutor",
+      "org": "Schoolhouse.world",
+      "period": "2025 – 2026",
+      "desc": "Free online peer tutoring platform.",
+      "points": [
+        "Tutored students in 6+ countries in AP Chemistry, AP Biology, Pre-Algebra, and SAT prep.",
+        "Led small-group online sessions adapted to each student's level."
       ]
     }
   ],
@@ -826,7 +848,7 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
 
   /* ---------- sections ---------- */
   function nav() {
-    var links = [["about", "About"], ["career", "Goals"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["education", "Education"], ["skills", "Skills"], ["resume", "Resume"], ["contact", "Contact"]];
+    var links = [["about", "About"], ["career", "Goals"], ["projects", "Projects"], ["experience", "Experience"], ["leadership", "Leadership"], ["volunteering", "Volunteering"], ["education", "Education"], ["skills", "Skills"], ["resume", "Resume"], ["contact", "Contact"]];
     var list = h("nav", { "class": "nav-links", id: "nav-links", "aria-label": "Sections" });
     var menu = h("button", { "class": "btn small menu-btn", type: "button", "aria-expanded": "false", "aria-controls": "nav-links", text: "Menu" });
     function close() { list.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); menu.textContent = "Menu"; }
@@ -1334,6 +1356,7 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
       hero(), about(), projects(),
       timeline("experience", "Experience", "experience", { role: "Role", org: "Company", period: "2027", desc: "", points: ["What you did and the result."] }),
       timeline("leadership", "Leadership", "leadership", { role: "Role", org: "Organization", period: "2027", desc: "", points: ["What you led and the result."] }),
+      (state.volunteering && (state.volunteering.length || editing)) ? timeline("volunteering", "Volunteering", "volunteering", { role: "Role", org: "Organization", period: "2027", desc: "", points: ["What you did and the impact."] }) : null,
       skills(), resume(), contact()
     ]), footer(), editbar()].forEach(function (n) { if (n) app.appendChild(n); });
     var ct = document.getElementById("contact-title");
