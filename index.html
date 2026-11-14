@@ -341,9 +341,9 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
   "name": "Vinisha Sisodia",
   "portrait": "aa85210b6e969b6fd03f4b110d386ce3",
   "eduLogo": "3644aee850bd930a1b3caadc34bbdda6",
-  "tagline": "Electrical Engineering at Georgia Tech",
+  "tagline": "",
   "headline": "Hi, I'm Vinisha!",
-  "intro": "I build PCBs, embedded controllers, and chip-scale energy-storage devices that turn schematics into working hardware.",
+  "intro": "Electrical engineering student at Georgia Tech, passionate about hardware design and experienced in leading and communicating with technical teams.",
   "stats": [],
   "facts": [
     {
@@ -861,7 +861,7 @@ body.editing [data-path]:focus, body.editing [data-csv]:focus { outline: 2px sol
 
   function hero() {
     var copy = h("div", { "class": "hero-copy" }, [
-      t("div", "tagline", "tagline"),
+      (state.tagline || editing) ? t("div", "tagline", "tagline") : null,
       t("h1", "headline"),
       t("p", "intro", "intro"),
       h("div", { "class": "hero-actions" }, [
