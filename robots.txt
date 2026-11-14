@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vinisha-sisodia.github.io/sitemap.xml
